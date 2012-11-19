@@ -34,6 +34,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.handmark.pulltorefresh.library.internal.FlipLoadingLayout;
+import com.handmark.pulltorefresh.library.internal.FoursquareLoadingLayout;
 import com.handmark.pulltorefresh.library.internal.LoadingLayout;
 import com.handmark.pulltorefresh.library.internal.RotateLoadingLayout;
 import com.handmark.pulltorefresh.library.internal.SDK16;
@@ -830,7 +831,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 		}
 
 		mLoadingAnimationStyle = AnimationStyle.mapIntToValue(a.getInteger(R.styleable.PullToRefresh_ptrAnimationStyle,
-				0));
+				2));
 
 		// Refreshable View
 		// By passing the attrs, we can add ListView/GridView params via XML
@@ -847,7 +848,11 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 			if (null != background) {
 				setBackgroundDrawable(background);
 			}
+		} else {
+			// Set default color
+			setBackgroundColor(0xFF3A3A3A);
 		}
+		
 		if (a.hasValue(R.styleable.PullToRefresh_ptrAdapterViewBackground)) {
 			Drawable background = a.getDrawable(R.styleable.PullToRefresh_ptrAdapterViewBackground);
 			if (null != background) {
@@ -1034,7 +1039,14 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 		 * This is the old default, and what is commonly used on iOS. Uses an
 		 * arrow image which flips depending on where the user has scrolled.
 		 */
-		FLIP;
+		FLIP,
+		
+		/**
+		 * This is the refresh animation style for the super famous and useful
+		 * Foursquare app. Uses an image which rotates depending on where the
+		 * user has scrolled.
+		 */
+		FOURSQUARE;
 
 		/**
 		 * Maps an int to a specific mode. This is needed when saving state, or
@@ -1049,20 +1061,24 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 		public static AnimationStyle mapIntToValue(int modeInt) {
 			switch (modeInt) {
 				case 0x0:
-				default:
 					return ROTATE;
 				case 0x1:
 					return FLIP;
+				case 0x2:
+				default:
+					return FOURSQUARE;
 			}
 		}
 
 		public LoadingLayout createLoadingLayout(Context context, Mode mode, TypedArray attrs) {
 			switch (this) {
 				case ROTATE:
-				default:
 					return new RotateLoadingLayout(context, mode, attrs);
 				case FLIP:
 					return new FlipLoadingLayout(context, mode, attrs);
+				case FOURSQUARE:
+				default:
+					return new FoursquareLoadingLayout(context, mode, attrs);
 			}
 		}
 	}
