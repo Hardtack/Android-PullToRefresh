@@ -83,7 +83,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 	private boolean mShowViewWhileRefreshing = true;
 	private boolean mDisableScrollingWhileRefreshing = true;
 	private boolean mFilterTouchEvents = true;
-	private boolean mOverScrollEnabled = true;
+	private boolean mOverScrollEnabled = false;
 
 	private Interpolator mScrollAnimationInterpolator;
 	private AnimationStyle mLoadingAnimationStyle;
@@ -860,7 +860,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 			}
 		}
 		if (a.hasValue(R.styleable.PullToRefresh_ptrOverScroll)) {
-			mOverScrollEnabled = a.getBoolean(R.styleable.PullToRefresh_ptrOverScroll, true);
+			mOverScrollEnabled = a.getBoolean(R.styleable.PullToRefresh_ptrOverScroll, false);
 		}
 
 		// Let the derivative classes have a go at handling attributes, then

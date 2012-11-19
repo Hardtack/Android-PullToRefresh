@@ -279,6 +279,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 	protected void handleStyledAttributes(TypedArray a) {
 		// Set Show Indicator to the XML value, or default value
 		mShowIndicator = a.getBoolean(R.styleable.PullToRefresh_ptrShowIndicator, !isPullToRefreshOverScrollEnabled());
+		mShowIndicator = false;
 	}
 
 	protected boolean isReadyForPullDown() {
