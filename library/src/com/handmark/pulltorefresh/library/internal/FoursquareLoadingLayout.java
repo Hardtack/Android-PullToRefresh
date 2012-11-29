@@ -5,7 +5,10 @@ import android.content.res.TypedArray;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.R;
@@ -19,6 +22,10 @@ import com.handmark.pulltorefresh.library.R;
 public class FoursquareLoadingLayout extends FlipLoadingLayout {
 	
 	private static final int BACKGROUND_COLOR = 0xFF3A3A3A;
+	
+	protected ImageView mCircleImageView;
+	
+	private Animation mSpinAnimation;
 
 	public FoursquareLoadingLayout(Context context, Mode mode, TypedArray attrs) {
 		super(context, mode, attrs);
@@ -40,6 +47,16 @@ public class FoursquareLoadingLayout extends FlipLoadingLayout {
 		// Hide the textviews
 		View textviewContainer = getChildAt(1);
 		textviewContainer.setVisibility(View.GONE);
+		
+        mSpinAnimation = new RotateAnimation(0, -359, Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        mSpinAnimation.setInterpolator(new FoursquareSpinInterpolator());
+        mSpinAnimation.setRepeatMode(Animation.INFINITE);
+        mSpinAnimation.setRepeatCount(Animation.INFINITE);
+        mSpinAnimation.setStartOffset(200);
+        mSpinAnimation.setDuration(500);
+
+        mCircleImageView = (ImageView) findViewById(R.id.pull_to_refresh_cuctom_image);
 	}
 
 	@Override
@@ -50,5 +67,25 @@ public class FoursquareLoadingLayout extends FlipLoadingLayout {
 	@Override
 	protected int getDefaultBottomDrawableResId() {
 		return R.drawable.foursquare_arrow;
+	}
+	
+	@Override
+	protected void refreshingImpl() {
+	    super.refreshingImpl();
+	    mHeaderProgress.setVisibility(View.GONE);
+	    if (mCircleImageView != null) {
+            mCircleImageView.setVisibility(View.VISIBLE);
+	        mCircleImageView.startAnimation(mSpinAnimation);
+	    }
+	}
+	
+	@Override
+	protected void resetImpl() {
+        super.resetImpl();
+        mHeaderProgress.setVisibility(View.GONE);
+        if (mCircleImageView != null) {
+            mCircleImageView.clearAnimation();
+            mCircleImageView.setVisibility(View.GONE);
+        }
 	}
 }
