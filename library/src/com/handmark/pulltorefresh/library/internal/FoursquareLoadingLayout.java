@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -50,10 +51,10 @@ public class FoursquareLoadingLayout extends FlipLoadingLayout {
 		
         mSpinAnimation = new RotateAnimation(0, -359, Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.5f);
-        mSpinAnimation.setInterpolator(new FoursquareSpinInterpolator());
+        mSpinAnimation.setInterpolator(new LinearInterpolator());
         mSpinAnimation.setRepeatMode(Animation.INFINITE);
         mSpinAnimation.setRepeatCount(Animation.INFINITE);
-        mSpinAnimation.setStartOffset(200);
+//        mSpinAnimation.setStartOffset(200);
         mSpinAnimation.setDuration(500);
 
         mCircleImageView = (ImageView) findViewById(R.id.pull_to_refresh_cuctom_image);
