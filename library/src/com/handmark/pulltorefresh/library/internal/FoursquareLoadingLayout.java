@@ -49,7 +49,7 @@ public class FoursquareLoadingLayout extends FlipLoadingLayout {
 		View textviewContainer = getChildAt(1);
 		textviewContainer.setVisibility(View.GONE);
 		
-        mSpinAnimation = new RotateAnimation(0, -359, Animation.RELATIVE_TO_SELF, 0.5f,
+        mSpinAnimation = new RotateAnimation(-359, 0, Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.5f);
         mSpinAnimation.setInterpolator(new LinearInterpolator());
         mSpinAnimation.setRepeatMode(Animation.INFINITE);
