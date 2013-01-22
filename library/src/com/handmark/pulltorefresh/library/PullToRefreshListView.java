@@ -270,6 +270,13 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
 		return lv;
 	}
 
+    @Override
+    public void setLoadingBackgroundColor(int color) {
+        super.setLoadingBackgroundColor(color);
+        mHeaderLoadingView.setBackgroundColor(color);
+        mFooterLoadingView.setBackgroundColor(color);
+    }
+	   
 	@TargetApi(9)
 	final class InternalListViewSDK9 extends InternalListView {
 

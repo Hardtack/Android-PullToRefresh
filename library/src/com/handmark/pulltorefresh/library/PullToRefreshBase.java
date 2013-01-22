@@ -374,6 +374,11 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 		refreshLoadingViewsHeight();
 	}
 
+	public void setLoadingBackgroundColor(int color) {
+	    mHeaderLayout.setBackgroundColor(color);
+	    mFooterLayout.setBackgroundColor(color);
+	}
+	
 	@Override
 	public void setLongClickable(boolean longClickable) {
 		getRefreshableView().setLongClickable(longClickable);
