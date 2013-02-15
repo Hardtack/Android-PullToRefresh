@@ -2,6 +2,7 @@ package com.handmark.pulltorefresh.library.internal;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Orientation;
 import com.handmark.pulltorefresh.library.R;
 
 /**
@@ -28,8 +30,8 @@ public class FoursquareLoadingLayout extends FlipLoadingLayout {
 	
 	private Animation mSpinAnimation;
 
-	public FoursquareLoadingLayout(Context context, Mode mode, TypedArray attrs) {
-		super(context, mode, attrs);
+	public FoursquareLoadingLayout(Context context, Mode mode, Orientation scrollDirection, TypedArray attrs) {
+		super(context, mode, scrollDirection, attrs);
 		setBackgroundColor(BACKGROUND_COLOR);
 
 		// Make refresh view container fill
@@ -44,11 +46,7 @@ public class FoursquareLoadingLayout extends FlipLoadingLayout {
 		FrameLayout.LayoutParams frameParams = (FrameLayout.LayoutParams) mHeaderImage.getLayoutParams();
 		frameParams.gravity = Gravity.CENTER;
 		mHeaderImage.setLayoutParams(frameParams);
-		
-		// Hide the textviews
-		View textviewContainer = getChildAt(1);
-		textviewContainer.setVisibility(View.GONE);
-		
+				
         mSpinAnimation = new RotateAnimation(-359, 0, Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.5f);
         mSpinAnimation.setInterpolator(new LinearInterpolator());
@@ -57,17 +55,23 @@ public class FoursquareLoadingLayout extends FlipLoadingLayout {
 //        mSpinAnimation.setStartOffset(200);
         mSpinAnimation.setDuration(500);
 
-        mCircleImageView = (ImageView) findViewById(R.id.pull_to_refresh_cuctom_image);
+        Log.d("@@@", "Foursquare layout");
+        
+//        mCircleImageView = (ImageView) findViewById(R.id.pull_to_refresh_custom_image);
 	}
 
-	@Override
-	protected int getDefaultTopDrawableResId() {
-		return R.drawable.foursquare_arrow_up;
-	}
+//	TODO not working
+//	protected int getDefaultTopDrawableResId() {
+//		return R.drawable.foursquare_arrow_up;
+//	}
+//	
+//	protected int getDefaultBottomDrawableResId() {
+//		return R.drawable.foursquare_arrow;
+//	}
 	
 	@Override
-	protected int getDefaultBottomDrawableResId() {
-		return R.drawable.foursquare_arrow;
+	protected int getDefaultDrawableResId() {
+	    return R.drawable.foursquare_arrow;
 	}
 	
 	@Override
